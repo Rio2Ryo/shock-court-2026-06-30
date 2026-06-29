@@ -26,6 +26,7 @@ export default function App() {
   const [state, setState] = useState(() => createInitialState(seedFromUrl()));
   const [weird, setWeird] = useState('<svg onload=alert(1)>朝の火花');
   const stateRef = useRef(state);
+  const courtRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     stateRef.current = state;
@@ -54,6 +55,13 @@ export default function App() {
 
   const doAct = (action: Action) => setState((prev) => act(prev, action));
   const closeCollision = () => setState((prev) => dragResident(prev, 'mika', 52, 42));
+  const dragByPointer = (id: ResidentId, clientX: number, clientY: number) => {
+    const rect = courtRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const x = ((clientX - rect.left) / rect.width) * 100;
+    const y = ((clientY - rect.top) / rect.height) * 100;
+    setState((prev) => dragResident(prev, id, x, y));
+  };
 
   return (
     <main>
@@ -75,7 +83,7 @@ export default function App() {
         <button onClick={() => doAct('settle')}>余震を静める</button>
       </section>
 
-      <section className="court" aria-label="衝突法廷">
+      <section ref={courtRef} className="court" aria-label="衝突法廷">
         <div className="threads">
           {state.threads.map((thread) => {
             const a = state.residents.find((r) => r.id === thread.a)!;
@@ -94,6 +102,13 @@ export default function App() {
             className="resident"
             style={{ left: `${resident.x}%`, top: `${resident.y}%`, background: resident.color }}
             onClick={() => setState((prev) => dragResident(prev, resident.id, 50, 44))}
+            onPointerDown={(event) => {
+              event.currentTarget.setPointerCapture(event.pointerId);
+              dragByPointer(resident.id, event.clientX, event.clientY);
+            }}
+            onPointerMove={(event) => {
+              if (event.buttons === 1) dragByPointer(resident.id, event.clientX, event.clientY);
+            }}
             aria-label={`${resident.name}を中央へ動かす`}
           >
             <strong>{resident.name}</strong>
