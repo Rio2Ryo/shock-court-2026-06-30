@@ -1,0 +1,39 @@
+:root {
+  color: #f5f1ff;
+  background: #120915;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; min-height: 100vh; background: radial-gradient(circle at 30% 0%, #40214c 0, #160d1a 42%, #08060d 100%); }
+button, input { font: inherit; }
+main { width: min(1180px, calc(100vw - 28px)); margin: 0 auto; padding: 28px 0 48px; }
+.hero { display: flex; justify-content: space-between; gap: 20px; align-items: end; }
+.eyebrow { color: #ffcf70; letter-spacing: .08em; text-transform: uppercase; font-size: 12px; }
+h1 { margin: 0; font-size: clamp(44px, 8vw, 92px); line-height: .9; text-shadow: 0 0 34px rgba(255, 255, 255, .22); }
+.hero p { max-width: 680px; color: #d9cee8; }
+.mood { border: 1px solid rgba(255,255,255,.18); border-radius: 999px; padding: 14px 18px; background: rgba(255,255,255,.08); box-shadow: 0 0 30px rgba(255, 97, 97, .18); }
+.controls { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0; }
+button { border: 0; border-radius: 999px; color: #fff; background: linear-gradient(135deg, #794cff, #ff477e); padding: 10px 14px; cursor: pointer; box-shadow: 0 8px 22px rgba(0,0,0,.28); }
+button:hover { filter: brightness(1.12); transform: translateY(-1px); }
+.court { position: relative; height: 520px; border: 1px solid rgba(255,255,255,.16); border-radius: 34px; overflow: hidden; background: linear-gradient(160deg, rgba(255,255,255,.08), rgba(255,255,255,.03)), radial-gradient(circle at 50% 44%, rgba(255, 255, 255, .12), transparent 18%), #181020; box-shadow: inset 0 0 60px rgba(255,255,255,.06), 0 22px 80px rgba(0,0,0,.38); }
+.court::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 38px 38px; mask-image: radial-gradient(circle, black, transparent 78%); }
+.thread { position: absolute; height: 3px; transform-origin: left center; background: linear-gradient(90deg, transparent, #fff, #ffb703, transparent); filter: drop-shadow(0 0 8px #fff); animation: thread-shake infinite alternate; }
+@keyframes thread-shake { from { transform: translateY(-2px); } to { transform: translateY(2px); } }
+.resident { position: absolute; translate: -50% -50%; width: 96px; height: 96px; border-radius: 28px; color: #181020; display: grid; place-content: center; gap: 4px; border: 3px solid rgba(255,255,255,.75); box-shadow: 0 0 0 8px rgba(255,255,255,.04), 0 0 28px currentColor; }
+.resident strong { font-size: 20px; }
+.resident small { font-size: 12px; opacity: .72; }
+.shock { position: absolute; translate: -50% -50%; pointer-events: none; display: grid; place-content: center; color: #fff; font-size: 11px; font-weight: 900; }
+.ring { border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 10px rgba(255,255,255,.08), 0 0 30px #fff, 0 0 50px #ff477e; animation: blast .9s infinite alternate; }
+.spark { border-radius: 50%; background: #fff; box-shadow: 0 0 14px #fff, 0 0 28px #ffcf70; animation: spark .7s infinite alternate; }
+.crack { color: #ffcf70; border-left: 4px solid #ffcf70; border-bottom: 3px solid rgba(255,207,112,.8); transform: skew(-18deg); filter: drop-shadow(0 0 12px #ff477e); }
+@keyframes blast { from { scale: .9; opacity: .9; } to { scale: 1.25; opacity: .45; } }
+@keyframes spark { from { translate: -55% -55%; } to { translate: -15% -90%; opacity: .45; } }
+.panels { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 16px; }
+article { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); border-radius: 22px; padding: 16px; min-height: 200px; }
+h2 { margin: 0 0 12px; font-size: 16px; color: #ffcf70; }
+article p, li, label { color: #e8def5; line-height: 1.45; font-size: 14px; }
+span { color: #bca9d8; }
+input { width: 100%; margin: 8px 0; border-radius: 12px; border: 1px solid rgba(255,255,255,.25); padding: 10px; color: #fff; background: rgba(0,0,0,.25); }
+ul { padding-left: 18px; }
+@media (max-width: 900px) { .hero { align-items: start; flex-direction: column; } .panels { grid-template-columns: 1fr; } .court { height: 430px; } }
